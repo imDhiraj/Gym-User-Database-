@@ -1,0 +1,164 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'GYM USERS DATABASE'
+  ClientHeight = 378
+  ClientWidth = 617
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object StringGrid1: TStringGrid
+    CanFocus = True
+    ClipChildren = True
+    Position.X = 21.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 380.000000000000000000
+    Size.Height = 129.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    RowCount = 5
+    Viewport.Width = 360.000000000000000000
+    Viewport.Height = 88.000000000000000000
+  end
+  object StringGrid2: TStringGrid
+    CanFocus = True
+    ClipChildren = True
+    Position.X = 409.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 200.000000000000000000
+    Size.Height = 129.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    RowCount = 3
+    Viewport.Width = 196.000000000000000000
+    Viewport.Height = 88.000000000000000000
+  end
+  object BindNavigator1: TBindNavigator
+    Position.X = 56.000000000000000000
+    Position.Y = 161.000000000000000000
+    Size.Width = 240.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 9
+    DataSource = BindSourceDB2
+    xRadius = 4.000000000000000000
+    yRadius = 4.000000000000000000
+  end
+  object BindNavigator2: TBindNavigator
+    Position.X = 377.000000000000000000
+    Position.Y = 161.000000000000000000
+    Size.Width = 240.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 10
+    DataSource = BindSourceDB1
+    xRadius = 4.000000000000000000
+    yRadius = 4.000000000000000000
+  end
+  object StringGrid3: TStringGrid
+    CanFocus = True
+    ClipChildren = True
+    Position.X = 136.000000000000000000
+    Position.Y = 248.000000000000000000
+    Size.Width = 369.000000000000000000
+    Size.Height = 108.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 19
+    RowCount = 2
+    Viewport.Width = 365.000000000000000000
+    Viewport.Height = 67.000000000000000000
+  end
+  object EmployeeConnection: TFDConnection
+    Params.Strings = (
+      'ConnectionDef=EMPLOYEE')
+    Connected = True
+    LoginPrompt = False
+    Left = 441
+    Top = 157
+  end
+  object GymusersTable: TFDQuery
+    Active = True
+    Connection = EmployeeConnection
+    SQL.Strings = (
+      'SELECT * FROM GYMUSERS')
+    Left = 378
+    Top = 156
+  end
+  object MembershiptypesTable: TFDQuery
+    Active = True
+    Connection = EmployeeConnection
+    SQL.Strings = (
+      'SELECT * FROM MEMBERSHIPTYPES')
+    Left = 506
+    Top = 156
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = MembershiptypesTable
+    ScopeMappings = <>
+    Left = 32
+    Top = 152
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 4
+    Top = 149
+    object LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      GridControl = StringGrid2
+      Columns = <>
+    end
+    object LinkGridToDataSourceBindSourceDB2: TLinkGridToDataSource
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB2
+      GridControl = StringGrid1
+      Columns = <>
+    end
+    object LinkGridToDataSourceBindSourceDB3: TLinkGridToDataSource
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB3
+      GridControl = StringGrid3
+      Columns = <>
+    end
+  end
+  object BindSourceDB2: TBindSourceDB
+    DataSet = GymusersTable
+    ScopeMappings = <>
+    Left = 64
+    Top = 152
+  end
+  object FDQuery1: TFDQuery
+    Active = True
+    MasterSource = DataSource1
+    MasterFields = 'MEMBERSHIPID'
+    DetailFields = 'MEMBERSHIPID'
+    Connection = EmployeeConnection
+    FetchOptions.AssignedValues = [evCache]
+    FetchOptions.Cache = [fiBlobs, fiMeta]
+    SQL.Strings = (
+      'SELECT * from GYMUsers'
+      'where Membershipid=:Membershipid')
+    Left = 320
+    Top = 280
+    ParamData = <
+      item
+        Name = 'MEMBERSHIPID'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = 1
+      end>
+  end
+  object DataSource1: TDataSource
+    DataSet = MembershiptypesTable
+    Left = 216
+    Top = 280
+  end
+  object BindSourceDB3: TBindSourceDB
+    DataSet = FDQuery1
+    ScopeMappings = <>
+    Left = 400
+    Top = 224
+  end
+end
